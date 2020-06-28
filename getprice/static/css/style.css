@@ -1,0 +1,20 @@
+.head-logo {
+    margin-top: 1rem;
+}
+
+.results-container {
+    margin-top: 1rem;
+}
+
+.outline {
+    outline: 1px red solid;
+}
+
+/* .img-thumbnail {
+    border: none;
+    border-radius: 5px;
+} */
+
+.btn-deck {
+    margin-top: 1rem;
+}

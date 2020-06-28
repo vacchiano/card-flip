@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Hello, world!</title>
+  </head>
+  <body>
+        <div class="container">
+
+          <h1 class="head-logo">💲 Card Flip</h1>
+
+          <hr>
+          
+          <form class="form-inline" action={% url 'search' %} method="POST">
+                {% csrf_token %}
+                <label class="sr-only" for="player_name">Player Name</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="player_name" placeholder="Player Name" name="player_name">
+                
+                <label class="sr-only" for="card_year">Year</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="card_year" placeholder="Year" name="card_year">
+                
+                <label class="sr-only" for="card_brand">Brand</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="card_brand" placeholder="Card Brand" name="card_brand">
+                
+                <label class="sr-only" for="card_keyword">Keywords</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="card_keyword" placeholder="Keywords ie 'Rookie Card'" name="card_keyword">
+                
+                <div class="form-check mb-2 mr-sm-2">
+                    <input class="form-check-input" type="checkbox" id="is_mint" name="is_mint">
+                    <label class="form-check-label" for="is_mint">
+                        Mint Condition
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary mb-2">Get Results!</button>
+            
+          </form>
+        </div>
+
+        <div class="results-container container">
+            <h2>👀 Results</h2>
+            <hr>
+            <div class="row">
+
+                <div class="col-3">
+                    {% if request.session.img_url %}
+                    <img src="{{ request.session.img_url }}" alt="Sports Card Image" class="rounded float-left img-thumbnail">
+                    {% else %}
+                    <img src="https://i.ebayimg.com/images/g/It8AAOSwoKhe9O7y/s-l500.jpg" alt="Patrick Kane Card" class="rounded float-left img-thumbnail">
+                    {% endif %}
+                </div>
+                <div class="col-9">
+                    <h4><b>Player Name:</b> {{ request.session.player_name }}</h4>
+                    <h4><b>Year:</b> {{ request.session.year }}</h4>
+                    <h4><b>Brand:</b> {{ request.session.brand }}</h4>
+                    {% if request.session.mint %}
+                    <h4><b>Mint:</b> Yes</h4>
+                    {% else %}
+                    <h4><b>Mint:</b> No</h4>
+                    {% endif %}
+                    <hr>
+                    <h3><b>Average Price + Shipping:</b> ${{ request.session.avg_price }}</h3>
+                    <button class="btn btn-primary btn-deck">Watch Card</button>
+                    <button class="btn btn-success btn-deck">Add To Deck</button>
+                </div>
+
+            </div>
+        </div>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
